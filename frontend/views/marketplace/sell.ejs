@@ -1,0 +1,189 @@
+<div class="mb-8 px-4 pt-4">
+  <h1 class="text-3xl font-semibold mb-4 text-gray-800">Sell a Product</h1>
+  <p class="text-gray-600">Fill out the form below to list your product on the marketplace</p>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-8 mx-2 mb-2">
+  <form action="/marketplace/sell" method="POST" enctype="multipart/form-data" data-validate="true">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Product Name -->
+      <div>
+        <label for="name" class="form-label text-sm font-medium text-gray-700">Product Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.name : '' %>"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'name')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'name').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Price -->
+      <div>
+        <label for="price" class="form-label text-sm font-medium text-gray-700">Price (₹)</label>
+        <input 
+          type="number" 
+          id="price" 
+          name="price" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.price : '' %>"
+          min="0"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'price')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'price').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Category -->
+      <div>
+        <label for="category" class="form-label text-sm font-medium text-gray-700">Category</label>
+        <input 
+          type="text" 
+          id="category" 
+          name="category" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.category : '' %>"
+          placeholder="e.g., Electronics, Books, Furniture"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'category')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'category').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Place -->
+      <div>
+        <label for="place" class="form-label text-sm font-medium text-gray-700">Place</label>
+        <input 
+          type="text" 
+          id="place" 
+          name="place" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.place : '' %>"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'place')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'place').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- WhatsApp Number -->
+      <div>
+        <label for="whatsappNumber" class="form-label text-sm font-medium text-gray-700">WhatsApp Number</label>
+        <input 
+          type="text" 
+          id="whatsappNumber" 
+          name="whatsappNumber" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.whatsappNumber : '' %>"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'whatsappNumber')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'whatsappNumber').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Call Number -->
+      <div>
+        <label for="callNumber" class="form-label text-sm font-medium text-gray-700">Call Number</label>
+        <input 
+          type="text" 
+          id="callNumber" 
+          name="callNumber" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value="<%= typeof formData !== 'undefined' ? formData.callNumber : '' %>"
+          required
+        >
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'callNumber')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'callNumber').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Availability -->
+      <div>
+        <label class="form-label text-sm font-medium text-gray-700">Availability</label>
+        <div class="mt-2 space-x-4">
+          <label class="inline-flex items-center">
+            <input 
+              type="radio" 
+              name="availability" 
+              value="true"
+              <%= typeof formData === 'undefined' || formData.availability === 'true' ? 'checked' : '' %>
+              class="form-radio"
+            >
+            <span class="ml-2">Available</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input 
+              type="radio" 
+              name="availability" 
+              value="false"
+              <%= typeof formData !== 'undefined' && formData.availability === 'false' ? 'checked' : '' %>
+              class="form-radio"
+            >
+            <span class="ml-2">Not Available</span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Description -->
+      <div class="md:col-span-2">
+        <label for="description" class="form-label text-sm font-medium text-gray-700">Description</label>
+        <textarea 
+          id="description" 
+          name="description" 
+          rows="4" 
+          class="form-input mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          required
+        ><%= typeof formData !== 'undefined' ? formData.description : '' %></textarea>
+        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'description')) { %>
+          <p class="form-error text-red-500 text-xs mt-1"><%= errors.find(error => error.param === 'description').msg %></p>
+        <% } %>
+      </div>
+      
+      <!-- Product Images -->
+      <div class="md:col-span-2">
+        <label class="form-label text-sm font-medium text-gray-700">Product Images (Max 6)</label>
+        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+          <div class="space-y-1 text-center">
+            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4h-12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="flex text-sm text-gray-600">
+              <label for="images" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
+                <span>Upload images</span>
+                <input id="images" name="images" type="file" class="sr-only file-input" multiple accept="image/*" required>
+              </label>
+              <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">
+              PNG, JPG, JPEG up to 5MB each
+            </p>
+          </div>
+        </div>
+        <div id="images-preview" class="mt-4 flex flex-wrap"></div>
+      </div>
+    </div>
+    
+    <div class="mt-8 flex flex-col sm:flex-row justify-end gap-4">
+  <!-- Cancel Button -->
+  <a href="/marketplace"
+     class="btn btn-secondary text-sm sm:text-base w-full sm:w-auto text-center">
+    Cancel
+  </a>
+
+  <!-- Submit Button -->
+  <button type="submit"
+          class="btn btn-primary text-sm sm:text-base w-full sm:w-auto">
+    Submit for Approval
+  </button>
+</div>
+
+  </form>
+</div>

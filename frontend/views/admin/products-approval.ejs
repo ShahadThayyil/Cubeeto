@@ -1,0 +1,66 @@
+<div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-lg font-bold">Product Approval</h2>
+    <p class="text-gray-600">Manage product submissions awaiting approval</p>
+  </div>
+  
+  <% if (products && products.length > 0) { %>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted By</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% products.forEach(product => { %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="h-10 w-10 flex-shrink-0">
+                    <img class="h-10 w-10 rounded-full object-cover" src="<%= product.thumbnail %>" alt="">
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900"><%= product.name %></div>
+                    <div class="text-sm text-gray-500">₹<%= product.price %> | <%= product.category %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= product.user ? product.user.name : 'Unknown' %></div>
+                <div class="text-sm text-gray-500"><%= product.user ? product.user.email : '' %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= product.type === 'sell' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800' %>">
+                  <%= product.type === 'sell' ? 'Marketplace' : 'Renting' %>
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= new Date(product.createdAt).toLocaleDateString() %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href="/marketplace/details/<%= product._id %>" class="text-indigo-600 hover:text-indigo-900 mr-3" target="_blank">View</a>
+                <form action="/admin/products/<%= product._id %>/approve?_method=PUT" method="POST" class="inline">
+                  <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Approve</button>
+                </form>
+                <form action="/admin/products/<%= product._id %>/reject?_method=DELETE" method="POST" class="inline">
+                  <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure you want to reject this product?')">Reject</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="p-8 text-center">
+      <i class="fas fa-check-circle text-green-400 text-5xl mb-4"></i>
+      <h3 class="text-xl font-bold mb-2">No Products Pending Approval</h3>
+      <p class="text-gray-600">All product submissions have been processed.</p>
+    </div>
+  <% } %>
+</div>

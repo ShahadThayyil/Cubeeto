@@ -1,0 +1,48 @@
+<div class="mb-8 px-4 pt-4">
+  <h1 class="text-3xl font-bold mb-4">Study Kit</h1>
+  <p class="text-gray-600">Comprehensive study resources coming soon</p>
+</div>
+
+<div class="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg overflow-hidden mx-2 mb-4">
+  <div class="p-8 md:p-12 text-white">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Coming Soon!</h2>
+    <p class="text-lg md:text-xl mb-6 max-w-2xl">
+      We're working hard to bring you comprehensive study kits designed to help you excel in your academics. Our study kits will include:
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+        <i class="fas fa-book text-3xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-2">Complete Notes</h3>
+        <p>Carefully curated and organized notes for all major subjects and courses.</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+        <i class="fas fa-tasks text-3xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-2">Practice Questions</h3>
+        <p>Extensive set of practice questions with detailed solutions.</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg">
+        <i class="fas fa-graduation-cap text-3xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-2">Study Guides</h3>
+        <p>Strategic study guides to help you prepare effectively for exams.</p>
+      </div>
+    </div>
+    
+    <% if (studyKits && studyKits.length > 0) { %>
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg mb-6">
+        <h3 class="text-xl font-bold mb-4">Available Study Kits</h3>
+        <div class="space-y-4">
+          <% studyKits.forEach(kit => { %>
+            <div class="bg-white/10 backdrop-blur-sm p-4 rounded-lg">
+              <h4 class="text-lg font-bold mb-2"><%= kit.title %></h4>
+              <p><%= kit.description %></p>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+    
+    <p class="text-lg">Subscribe to our newsletter to be the first to know when Study Kits are available!</p>
+    
+   
+  </div>
+</div>

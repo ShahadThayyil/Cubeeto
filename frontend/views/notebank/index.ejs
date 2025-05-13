@@ -1,0 +1,139 @@
+<div class="mb-8 px-4 pt-4">
+  <h1 class="text-3xl font-bold mb-4">NoteBank</h1>
+  <p class="text-gray-600">Download educational notes and resources</p>
+</div>
+
+<div class="flex flex-col md:flex-row gap-6 px-4 pb-4">
+  <!-- Filters Sidebar -->
+  <div class="w-full md:w-1/4 bg-white rounded-xl shadow-lg p-6 h-fit">
+    <h2 class="text-xl font-semibold mb-6 text-gray-800">Filters</h2>
+    
+    <form action="/notebank" method="GET" class="space-y-4">
+      <!-- Subject -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+        <select name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+          <option value="">All Subjects</option>
+          <% if (subjects && subjects.length > 0) { %>
+            <% subjects.forEach(subject => { %>
+              <option value="<%= subject %>" <%= filters.subject === subject ? 'selected' : '' %>><%= subject %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Course -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Course</label>
+        <select name="course" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+          <option value="">All Courses</option>
+          <% if (courses && courses.length > 0) { %>
+            <% courses.forEach(course => { %>
+              <option value="<%= course %>" <%= filters.course === course ? 'selected' : '' %>><%= course %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- College -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">College</label>
+        <select name="college" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+          <option value="">All Colleges</option>
+          <% if (colleges && colleges.length > 0) { %>
+            <% colleges.forEach(college => { %>
+              <option value="<%= college %>" <%= filters.college === college ? 'selected' : '' %>><%= college %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Stream -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Stream</label>
+        <select name="stream" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+          <option value="">All Streams</option>
+          <% if (streams && streams.length > 0) { %>
+            <% streams.forEach(stream => { %>
+              <option value="<%= stream %>" <%= filters.stream === stream ? 'selected' : '' %>><%= stream %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Semester -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Semester</label>
+        <select name="semester" class="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+          <option value="">All Semesters</option>
+          <% if (semesters && semesters.length > 0) { %>
+            <% semesters.forEach(semester => { %>
+              <option value="<%= semester %>" <%= filters.semester === semester ? 'selected' : '' %>><%= semester %></option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Buttons -->
+      <div class="space-y-2 pt-2">
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+          Apply Filters
+        </button>
+        <a href="/notebank" class="w-full block text-center bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg font-medium">
+          Clear Filters
+        </a>
+      </div>
+    </form>
+
+    <% if (user) { %>
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <a href="/notebank/upload" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-medium block text-center">
+          <i class="fas fa-plus mr-2"></i> Upload Notes
+        </a>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Notes Grid -->
+  <div class="w-full md:w-3/4">
+    <% if (notes && notes.length > 0) { %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% notes.forEach(note => { %>
+          <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-transform transform hover:scale-[1.02]">
+            <div class="p-6">
+              <div class="flex justify-center mb-4">
+                <i class="fas fa-file-pdf text-red-500 text-5xl"></i>
+              </div>
+              <h3 class="font-semibold text-lg mb-2 text-center truncate"><%= note.name %></h3>
+              <div class="mb-4">
+                <div class="flex flex-wrap gap-1 mb-2 justify-center">
+                  <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"><%= note.subject %></span>
+                  <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded"><%= note.semester %></span>
+                </div>
+                <p class="text-gray-600 text-sm text-center"><%= note.course %> | <%= note.stream %></p>
+                <p class="text-gray-400 text-xs text-center mt-1"><%= note.college %></p>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500 text-sm">
+                  <i class="fas fa-download mr-1"></i> <%= note.downloadCount %>
+                </span>
+                <a href="/notebank/download/<%= note._id %>" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-3 rounded text-sm">
+                  Download
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <i class="fas fa-file-alt text-gray-400 text-5xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-2">No Notes Found</h3>
+        <p class="text-gray-600 mb-4">There are no notes matching your filters.</p>
+        <a href="/notebank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium">
+          View All Notes
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>

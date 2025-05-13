@@ -1,0 +1,140 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center">
+      <div class="rounded-full p-3 bg-blue-100 text-blue-500 mr-4">
+        <i class="fas fa-users text-2xl"></i>
+      </div>
+      <div>
+        <h3 class="text-sm text-gray-500 font-medium">Total Users</h3>
+        <p class="text-2xl font-bold"><%= counts.users %></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center">
+      <div class="rounded-full p-3 bg-green-100 text-green-500 mr-4">
+        <i class="fas fa-shopping-cart text-2xl"></i>
+      </div>
+      <div>
+        <h3 class="text-sm text-gray-500 font-medium">Total Products</h3>
+        <p class="text-2xl font-bold"><%= counts.totalProducts %></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center">
+      <div class="rounded-full p-3 bg-orange-100 text-orange-500 mr-4">
+        <i class="fas fa-file-alt text-2xl"></i>
+      </div>
+      <div>
+        <h3 class="text-sm text-gray-500 font-medium">Total Notes</h3>
+        <p class="text-2xl font-bold"><%= counts.totalNotes %></p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <div class="flex items-center">
+      <div class="rounded-full p-3 bg-red-100 text-red-500 mr-4">
+        <i class="fas fa-clock text-2xl"></i>
+      </div>
+      <div>
+        <h3 class="text-sm text-gray-500 font-medium">Pending Approvals</h3>
+        <p class="text-2xl font-bold"><%= counts.pendingProducts + counts.pendingNotes %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-md p-6 mb-8">
+  <h2 class="text-lg font-bold mb-4">Pending Approvals</h2>
+  <div class="flex flex-col md:flex-row gap-6">
+    <div class="md:w-1/2">
+      <h3 class="text-md font-medium mb-3">Products (<%= counts.pendingProducts %>)</h3>
+      <% if (counts.pendingProducts > 0) { %>
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <i class="fas fa-exclamation-circle text-orange-500"></i>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-orange-700">
+                You have <%= counts.pendingProducts %> product(s) waiting for approval.
+                <a href="/admin/products-approval" class="font-medium underline text-orange-700 hover:text-orange-600">
+                  Review them
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% } else { %>
+        <p class="text-gray-500">No pending product approvals.</p>
+      <% } %>
+    </div>
+    
+    <div class="md:w-1/2">
+      <h3 class="text-md font-medium mb-3">Notes (<%= counts.pendingNotes %>)</h3>
+      <% if (counts.pendingNotes > 0) { %>
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <i class="fas fa-exclamation-circle text-orange-500"></i>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-orange-700">
+                You have <%= counts.pendingNotes %> note(s) waiting for approval.
+                <a href="/admin/notes-approval" class="font-medium underline text-orange-700 hover:text-orange-600">
+                  Review them
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% } else { %>
+        <p class="text-gray-500">No pending note approvals.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-lg font-bold mb-4">Quick Links</h2>
+    <div class="grid grid-cols-2 gap-4">
+      <a href="/admin/users" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 flex items-center">
+        <i class="fas fa-users text-blue-500 mr-3"></i>
+        <span>User Management</span>
+      </a>
+      <a href="/admin/products-approval" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 flex items-center">
+        <i class="fas fa-shopping-cart text-green-500 mr-3"></i>
+        <span>Product Approval</span>
+      </a>
+      <a href="/admin/notes-approval" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 flex items-center">
+        <i class="fas fa-file-alt text-orange-500 mr-3"></i>
+        <span>Note Approval</span>
+      </a>
+      <a href="/admin/studykit" class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 flex items-center">
+        <i class="fas fa-book text-purple-500 mr-3"></i>
+        <span>Study Kit</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-lg font-bold mb-4">Admin Info</h2>
+    <div class="mb-4">
+      <h3 class="text-sm text-gray-500 font-medium">Admin Name</h3>
+      <p class="text-lg"><%= user.name %></p>
+    </div>
+    <div class="mb-4">
+      <h3 class="text-sm text-gray-500 font-medium">Admin Email</h3>
+      <p class="text-lg"><%= user.email %></p>
+    </div>
+    <div>
+      <h3 class="text-sm text-gray-500 font-medium">Role</h3>
+      <p class="text-lg"><%= user.isMainAdmin ? 'Main Admin' : 'Admin' %></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-lg font-bold">Note Approval</h2>
+    <p class="text-gray-600">Manage note submissions awaiting approval</p>
+  </div>
+  
+  <% if (notes && notes.length > 0) { %>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Note</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted By</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course Info</th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% notes.forEach(note => { %>
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-red-100 text-red-500 rounded-full">
+                    <i class="fas fa-file-pdf"></i>
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900"><%= note.name %></div>
+                    <div class="text-sm text-gray-500"><%= note.subject %></div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= note.user ? note.user.name : 'Unknown' %></div>
+                <div class="text-sm text-gray-500"><%= note.user ? note.user.email : '' %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= note.course %> | <%= note.stream %></div>
+                <div class="text-sm text-gray-500"><%= note.college %> | Sem: <%= note.semester %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <%= new Date(note.createdAt).toLocaleDateString() %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <a href="<%= note.filePath %>" class="text-indigo-600 hover:text-indigo-900 mr-3" target="_blank">Preview</a>
+                <form action="/admin/notes/<%= note._id %>/approve?_method=PUT" method="POST" class="inline">
+                  <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Approve</button>
+                </form>
+                <form action="/admin/notes/<%= note._id %>/reject?_method=DELETE" method="POST" class="inline">
+                  <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure you want to reject this note?')">Reject</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } else { %>
+    <div class="p-8 text-center">
+      <i class="fas fa-check-circle text-green-400 text-5xl mb-4"></i>
+      <h3 class="text-xl font-bold mb-2">No Notes Pending Approval</h3>
+      <p class="text-gray-600">All note submissions have been processed.</p>
+    </div>
+  <% } %>
+</div>
