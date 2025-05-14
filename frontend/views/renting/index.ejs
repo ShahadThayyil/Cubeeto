@@ -70,7 +70,7 @@
         <% products.forEach(product => { %>
           <a href="/marketplace/details/<%= product._id %>" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-transform transform hover:scale-105">
             <div class="relative h-48 flex justify-center">
-              <img src="<%= product.thumbnail %>" alt="<%= product.name %>" class="w-52 h-52 sm:h-full object-cover ">
+              <img src="<%= product.thumbnail %>" alt="<%= product.name %>" class="w-52 h-52 sm:h-full object-cover " loading="lazy">
               <div class="absolute top-2 right-2 bg-orange-500 text-white px-3 py-1 text-xs rounded-full shadow">
                 ₹<%= product.price %>/day
               </div>

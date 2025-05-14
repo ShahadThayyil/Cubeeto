@@ -92,7 +92,7 @@ exports.deleteUser = async (req, res) => {
     await Note.deleteMany({ user: user._id });
     
     // Delete user
-    await user.remove();
+    await user.deleteOne();
     
     req.flash('success_msg', 'User deleted successfully');
     res.redirect('/admin/users');
@@ -104,6 +104,20 @@ exports.deleteUser = async (req, res) => {
 };
 
 // Render product approval
+exports.viewAnyProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id).populate('user');
+    if (!product) {
+      return res.status(404).render('errors/404', { title: 'Product Not Found' });
+    }
+    res.render('marketplace/details', { product }); // or use a custom admin view
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+};
+
+
 exports.renderProductApproval = async (req, res) => {
   try {
     const pendingProducts = await Product.find({ isApproved: false })

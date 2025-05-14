@@ -20,6 +20,7 @@ router.put('/users/:id/toggle-admin', isMainAdmin, adminController.toggleUserAdm
 router.delete('/users/:id', isMainAdmin, adminController.deleteUser);
 
 // Product approval
+router.get('/products/:id/view', isAdmin, adminController.viewAnyProduct);
 router.get('/products-approval', isAdmin, adminController.renderProductApproval);
 router.put('/products/:id/approve', isAdmin, adminController.approveProduct);
 router.delete('/products/:id/reject', isAdmin, adminController.rejectProduct);

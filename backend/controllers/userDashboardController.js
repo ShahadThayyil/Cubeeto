@@ -150,7 +150,7 @@ exports.deleteNote = async (req, res) => {
       return res.redirect('/dashboard/notebank');
     }
     
-    await note.remove();
+    await note.deleteOne();
     
     req.flash('success_msg', 'Note deleted successfully');
     return res.redirect('/dashboard/notebank');

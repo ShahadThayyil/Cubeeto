@@ -43,7 +43,7 @@
                 <%= new Date(product.createdAt).toLocaleDateString() %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="/marketplace/details/<%= product._id %>" class="text-indigo-600 hover:text-indigo-900 mr-3" target="_blank">View</a>
+                <a href="/admin/products/<%= product._id %>/view" class="text-indigo-600 hover:text-indigo-900 mr-3" target="_blank">View</a>
                 <form action="/admin/products/<%= product._id %>/approve?_method=PUT" method="POST" class="inline">
                   <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Approve</button>
                 </form>

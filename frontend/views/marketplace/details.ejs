@@ -1,22 +1,22 @@
 <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4 md:p-6 lg:p-8">
   <div class="flex flex-col lg:flex-row gap-8">
-    
+
     <!-- Product Images -->
     <div class="w-full lg:w-1/2">
       <div class="mb-4 aspect-video bg-gray-100 rounded-xl overflow-hidden">
-        <img id="main-image" src="<%= product.thumbnail %>" alt="<%= product.name %>" class="w-full h-full object-contain">
+        <img id="main-image" src="<%= product.thumbnail %>" alt="<%= product.name %>" class="w-full h-full object-contain" loading="lazy">
       </div>
-      
+
       <div class="flex flex-wrap gap-3">
         <% product.images.forEach((image, index) => { %>
           <div class="w-20 h-20 rounded-lg overflow-hidden border cursor-pointer hover:ring-2 ring-blue-500 transition duration-200"
                onclick="changeMainImage('<%= image %>')">
-            <img src="<%= image %>" alt="Thumbnail <%= index + 1 %>" class="w-full h-full object-cover">
+            <img src="<%= image %>" alt="Thumbnail <%= index + 1 %>" class="w-full h-full object-cover" loading="lazy">
           </div>
         <% }); %>
       </div>
     </div>
-    
+
     <!-- Product Details -->
     <div class="w-full lg:w-1/2 flex flex-col justify-between">
       <div>
@@ -45,9 +45,21 @@
       <div class="mt-6">
         <h2 class="text-lg font-semibold mb-2">Contact</h2>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="https://wa.me/<%= product.whatsappNumber %>" target="_blank" class="btn flex items-center justify-center bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
+          <a href="https://wa.me/<%= product.whatsappNumber %>?text=<%= encodeURIComponent(`Hello, I'm interested in your product:
+
+🛍️ *Product Name:* ${product.name}
+💰 *Price:* ₹${product.price}
+📍 *Place:* ${product.place}
+🏷️ *Category:* ${product.category}
+📝 *Description:* ${product.description}
+🔗 *Link:* https://cubeeto.up.railway.app/marketplace/details/${product._id}
+
+Please let me know more details.`) %>"
+          target="_blank" 
+          class="btn flex items-center justify-center bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition">
             <i class="fab fa-whatsapp mr-2"></i> WhatsApp
           </a>
+
           <a href="tel:<%= product.callNumber %>" class="btn flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition">
             <i class="fas fa-phone-alt mr-2"></i> Call
           </a>
