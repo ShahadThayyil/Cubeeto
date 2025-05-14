@@ -37,21 +37,35 @@
         <% } %>
       </div>
       
-      <div class="flex flex-col">
-        <label for="category" class="form-label mb-1">Category</label>
-        <input 
-          type="text" 
-          id="category" 
-          name="category" 
-          class="form-input px-3 py-2 border" 
-          value="<%= typeof formData !== 'undefined' ? formData.category : '' %>"
-          placeholder="e.g., Electronics, Equipment, Vehicles"
-          required
-        >
-        <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'category')) { %>
-          <p class="form-error mt-1"><%= errors.find(error => error.param === 'category').msg %></p>
-        <% } %>
-      </div>
+     <div>
+  <label for="category" class="form-label text-sm font-medium text-gray-700">Category</label>
+  <select 
+    id="category" 
+    name="category" 
+    class="form-select mt-1 px-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    required
+  >
+    <option value="">-- Select a Category --</option>
+    <option value="Cars" <%= (typeof formData !== 'undefined' && formData.category === 'Cars') ? 'selected' : '' %>>Cars</option>
+    <option value="Properties" <%= (typeof formData !== 'undefined' && formData.category === 'Properties') ? 'selected' : '' %>>Properties</option>
+    <option value="Mobiles" <%= (typeof formData !== 'undefined' && formData.category === 'Mobiles') ? 'selected' : '' %>>Mobiles</option>
+    <option value="Jobs" <%= (typeof formData !== 'undefined' && formData.category === 'Jobs') ? 'selected' : '' %>>Jobs</option>
+    <option value="Bikes" <%= (typeof formData !== 'undefined' && formData.category === 'Bikes') ? 'selected' : '' %>>Bikes</option>
+    <option value="Electronics & Appliances" <%= (typeof formData !== 'undefined' && formData.category === 'Electronics & Appliances') ? 'selected' : '' %>>Electronics & Appliances</option>
+    <option value="Commercial Vehicles & Spares" <%= (typeof formData !== 'undefined' && formData.category === 'Commercial Vehicles & Spares') ? 'selected' : '' %>>Commercial Vehicles & Spares</option>
+    <option value="Furniture" <%= (typeof formData !== 'undefined' && formData.category === 'Furniture') ? 'selected' : '' %>>Furniture</option>
+    <option value="Fashion" <%= (typeof formData !== 'undefined' && formData.category === 'Fashion') ? 'selected' : '' %>>Fashion</option>
+    <option value="Books, Sports & Hobbies" <%= (typeof formData !== 'undefined' && formData.category === 'Books, Sports & Hobbies') ? 'selected' : '' %>>Books, Sports & Hobbies</option>
+    <option value="Pets" <%= (typeof formData !== 'undefined' && formData.category === 'Pets') ? 'selected' : '' %>>Pets</option>
+    <option value="Other" <%= (typeof formData !== 'undefined' && formData.category === 'Other') ? 'selected' : '' %>>Other</option>
+  </select>
+
+  <% if(typeof errors !== 'undefined' && errors.find(error => error.param === 'category')) { %>
+    <p class="form-error text-red-500 text-xs mt-1">
+      <%= errors.find(error => error.param === 'category').msg %>
+    </p>
+  <% } %>
+</div>
       
       <div class="flex flex-col">
         <label for="place" class="form-label mb-1">Place</label>
@@ -74,6 +88,7 @@
           type="text" 
           id="whatsappNumber" 
           name="whatsappNumber" 
+          placeholder="e.g., +91 98765 43210"
           class="form-input px-3 py-2 border" 
           value="<%= typeof formData !== 'undefined' ? formData.whatsappNumber : '' %>"
           required
