@@ -7,6 +7,8 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const expressLayouts = require('express-ejs-layouts');
 const dotenv = require('dotenv');
+const compression = require('compression');
+
 
 // Load environment variables
 dotenv.config();
@@ -43,6 +45,8 @@ app.set('layout', 'layouts/main');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
+app.use(compression());
+
 
 // Session setup
 app.use(session({
